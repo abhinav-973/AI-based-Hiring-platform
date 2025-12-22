@@ -1,9 +1,8 @@
+import { useJobs } from "../../context/JobContext";
+
+
 const JobTable = () => {
-  const jobs = [
-    { id: 1, title: "Frontend Developer", applicants: 40, status: "Open" },
-    { id: 2, title: "Backend Developer", applicants: 25, status: "Open" },
-    { id: 3, title: "ML Engineer", applicants: 15, status: "Closed" },
-  ];
+  const { jobs } = useJobs();
 
   return (
     <div className="mt-10 bg-white p-6 rounded-lg shadow-md">

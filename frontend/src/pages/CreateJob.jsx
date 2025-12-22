@@ -1,6 +1,11 @@
 import { useState } from "react";
+import { useJobs } from "../context/JobContext";
+import { useNavigate } from "react-router-dom";
 
 const CreateJob = () => {
+  const { addJob } = useJobs();
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     title: "",
     description: "",
@@ -30,10 +35,9 @@ const CreateJob = () => {
       return;
     }
 
-    setError("");
-    console.log("Job Created:", formData);
+    addJob({ title: formData.title });
 
-    // later → API call
+    navigate("/recruiter");
   };
 
   return (
@@ -45,9 +49,7 @@ const CreateJob = () => {
         className="bg-white p-6 rounded-lg shadow-md space-y-4"
       >
         {error && (
-          <p className="text-red-600 bg-red-100 p-2 rounded">
-            {error}
-          </p>
+          <p className="text-red-600 bg-red-100 p-2 rounded">{error}</p>
         )}
 
         <div>
@@ -63,9 +65,7 @@ const CreateJob = () => {
         </div>
 
         <div>
-          <label className="block mb-1 font-medium">
-            Job Description
-          </label>
+          <label className="block mb-1 font-medium">Job Description</label>
           <textarea
             name="description"
             value={formData.description}
@@ -77,9 +77,7 @@ const CreateJob = () => {
         </div>
 
         <div>
-          <label className="block mb-1 font-medium">
-            Required Skills
-          </label>
+          <label className="block mb-1 font-medium">Required Skills</label>
           <input
             type="text"
             name="skills"
@@ -91,9 +89,7 @@ const CreateJob = () => {
         </div>
 
         <div>
-          <label className="block mb-1 font-medium">
-            Experience (years)
-          </label>
+          <label className="block mb-1 font-medium">Experience (years)</label>
           <input
             type="number"
             name="experience"
